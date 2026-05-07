@@ -16,33 +16,94 @@ bool is_valid_message(const string &text) {
 }
 
 string rail_fence_encrypt(const string &plaintext, int rails) {
-    if (rails <= 1 || plaintext.empty()) return plaintext;
+    if (rails <= 1 || plaintext.empty())
+        return plaintext;
 
     vector<string> fence(rails, "");
+
     int rail = 0;
     int direction = 1;
 
     for (char c : plaintext) {
-        // TODO(student): Q6 can keep spaces as normal characters.
         fence[rail] += c;
+
+        if (rail == 0)
+            direction = 1;
+        else if (rail == rails - 1)
+            direction = -1;
+
         rail += direction;
-        if (rail == rails - 1 || rail == 0) direction = -direction;
     }
 
     string ciphertext;
-    for (const string &row : fence) ciphertext += row;
+
+    for (const string &row : fence)
+        ciphertext += row;
+
     return ciphertext;
 }
 
 string rail_fence_decrypt(const string &ciphertext, int rails) {
-    // TODO(student): Q5
-    return ciphertext;
+    if (rails <= 1 || ciphertext.empty())
+        return ciphertext;
+
+    int n = ciphertext.length();
+
+    // Tạo ma trận đánh dấu
+    vector<vector<char>> fence(rails, vector<char>(n, '\n'));
+
+    int rail = 0;
+    int direction = 1;
+
+    // Đánh dấu vị trí zigzag
+    for (int i = 0; i < n; i++) {
+        fence[rail][i] = '*';
+
+        if (rail == 0)
+            direction = 1;
+        else if (rail == rails - 1)
+            direction = -1;
+
+        rail += direction;
+    }
+
+    // Điền ciphertext vào vị trí đã đánh dấu
+    int index = 0;
+
+    for (int r = 0; r < rails; r++) {
+        for (int c = 0; c < n; c++) {
+            if (fence[r][c] == '*' && index < n) {
+                fence[r][c] = ciphertext[index++];
+            }
+        }
+    }
+
+    // Đọc lại theo zigzag
+    string plaintext;
+
+    rail = 0;
+    direction = 1;
+
+    for (int i = 0; i < n; i++) {
+        plaintext += fence[rail][i];
+
+        if (rail == 0)
+            direction = 1;
+        else if (rail == rails - 1)
+            direction = -1;
+
+        rail += direction;
+    }
+
+    return plaintext;
 }
 
 string read_message_from_file(const string &path) {
     ifstream fin(path);
+
     string line;
     getline(fin, line);
+
     return line;
 }
 
@@ -74,10 +135,14 @@ int main() {
     }
 
     if (choice == 1 || choice == 3) {
-        cout << "Ciphertext: " << rail_fence_encrypt(message, rails) << "\n";
-    } else if (choice == 2) {
-        cout << "Plaintext: " << rail_fence_decrypt(message, rails) << "\n";
-    } else {
+        cout << "Ciphertext: "
+             << rail_fence_encrypt(message, rails) << "\n";
+    }
+    else if (choice == 2) {
+        cout << "Plaintext: "
+             << rail_fence_decrypt(message, rails) << "\n";
+    }
+    else {
         cout << "Invalid choice.\n";
     }
 
