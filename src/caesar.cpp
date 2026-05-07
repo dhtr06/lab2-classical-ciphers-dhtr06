@@ -17,22 +17,24 @@ char shift_char(char c, int shift) {
     if (!isalpha(static_cast<unsigned char>(c))) return c;
 
     char base = isupper(static_cast<unsigned char>(c)) ? 'A' : 'a';
+
     shift %= 26;
     if (shift < 0) shift += 26;
+
     return static_cast<char>((c - base + shift) % 26 + base);
 }
 
 string caesar_encrypt(const string &plaintext, int shift) {
     string ciphertext;
+
     for (char c : plaintext) {
-        // TODO(student): Q1 + Q2
         ciphertext += shift_char(c, shift);
     }
+
     return ciphertext;
 }
 
 string caesar_decrypt(const string &ciphertext, int shift) {
-    // TODO(student): Q3
     return caesar_encrypt(ciphertext, -shift);
 }
 
@@ -49,6 +51,7 @@ int main() {
 
     cout << "Enter message: ";
     getline(cin, message);
+
     cout << "Enter key: ";
     cin >> shift;
 
@@ -58,10 +61,14 @@ int main() {
     }
 
     if (choice == 1) {
-        cout << "Ciphertext: " << caesar_encrypt(message, shift) << "\n";
-    } else if (choice == 2) {
-        cout << "Plaintext: " << caesar_decrypt(message, shift) << "\n";
-    } else {
+        cout << "Ciphertext: "
+             << caesar_encrypt(message, shift) << "\n";
+    }
+    else if (choice == 2) {
+        cout << "Plaintext: "
+             << caesar_decrypt(message, shift) << "\n";
+    }
+    else {
         cout << "Invalid choice.\n";
     }
 
