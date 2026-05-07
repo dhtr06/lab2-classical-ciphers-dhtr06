@@ -23,7 +23,6 @@ string rail_fence_encrypt(const string &plaintext, int rails) {
     int direction = 1;
 
     for (char c : plaintext) {
-        // TODO(student): Q6 can keep spaces as normal characters.
         fence[rail] += c;
         rail += direction;
         if (rail == rails - 1 || rail == 0) direction = -direction;
@@ -35,7 +34,6 @@ string rail_fence_encrypt(const string &plaintext, int rails) {
 }
 
 string rail_fence_decrypt(const string &ciphertext, int rails) {
-    // TODO(student): Q5
     return ciphertext;
 }
 
