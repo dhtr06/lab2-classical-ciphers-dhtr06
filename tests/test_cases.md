@@ -3,12 +3,12 @@
 ## Caesar Cipher
 - [x] Encrypt `I LOVE YOU` với key `3`
 - [x] Encrypt `hello world` với key `5`
-- [x] Decrypt `LORYH BRX` với key `3`
+- [x] Decrypt `L ORYH BRX` với key `3`
 
 ## Rail Fence Cipher
 - [x] Encrypt `I LOVE YOU` với `2` rails
 - [x] Encrypt `I LOVE YOU` với `4` rails
-- [x] Decrypt một bản mã Rail Fence hợp lệ
+- [x] Decrypt `ILV O OEYU` với `2` rails
 
 ## Validation / File input
 - [x] Kiểm tra đầu vào không hợp lệ
